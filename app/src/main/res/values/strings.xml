@@ -1,3 +1,9 @@
 <resources>
+
     <string name="app_name">DialogPickerDateTimeDemo</string>
+
+    <string name="bnTime">Pick Time</string>
+    <string name="bnDate">Pick Date</string>
+    <string name="tvTime">Choose time and listener</string>
+
 </resources>
