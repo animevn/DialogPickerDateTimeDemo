@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -41,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
         updateTextView();
     }
 
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(MESSAGE, tvTime.getText().toString());
-    }
-
     private void openDatePicker() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DatePicker fragment = (DatePicker) getSupportFragmentManager().findFragmentByTag("date");
@@ -54,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
             DatePicker datePicker = new DatePicker();
             datePicker.show(getSupportFragmentManager(), "date");
         }
-
     }
 
     private void openTimePicker() {
@@ -77,5 +68,4 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
-
 }
