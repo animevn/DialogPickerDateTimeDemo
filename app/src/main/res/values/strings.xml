@@ -4,6 +4,7 @@
 
     <string name="bnTime">Pick Time</string>
     <string name="bnDate">Pick Date</string>
-    <string name="tvTime">Choose time and listener</string>
+    <string name="tvTime">Choose time</string>
+    <string name="tvDate">Choose date</string>
 
 </resources>

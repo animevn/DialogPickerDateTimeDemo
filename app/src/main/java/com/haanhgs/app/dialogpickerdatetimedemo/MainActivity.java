@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-//using interface will need to implement saveinstance and restart interface or else
-//interface null & app crashes when configurations change.
-//really should be migrated to livedata and all will be free.
-public class MainActivity extends AppCompatActivity implements DatePicker.ReturnDate, TimePicker.ReturnTime{
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.tvTime)
     TextView tvTime;
@@ -24,15 +23,13 @@ public class MainActivity extends AppCompatActivity implements DatePicker.Return
     Button bnDate;
 
     private static final String MESSAGE = "message";
+    @BindView(R.id.tvDate)
+    TextView tvDate;
+    private Model model;
 
-    private void loadInstanceState(Bundle bundle){
-        if (bundle != null){
-            tvTime.setText(bundle.getString(MESSAGE));
-            DatePicker date = (DatePicker)getSupportFragmentManager().findFragmentByTag("date");
-            if (date != null) date.setListener(this);
-            TimePicker time = (TimePicker)getSupportFragmentManager().findFragmentByTag("time");
-            if (time != null) time.setListener(this);
-        }
+    private void updateTextView() {
+        model.getDate().observe(this, string -> tvDate.setText(string));
+        model.getTime().observe(this, string -> tvTime.setText(string));
     }
 
     @Override
@@ -40,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements DatePicker.Return
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        loadInstanceState(savedInstanceState);
+        model = ViewModelProviders.of(this).get(Model.class);
+        updateTextView();
     }
 
     @Override
@@ -49,23 +47,21 @@ public class MainActivity extends AppCompatActivity implements DatePicker.Return
         outState.putString(MESSAGE, tvTime.getText().toString());
     }
 
-    private void openDatePicker(){
+    private void openDatePicker() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DatePicker fragment = (DatePicker) getSupportFragmentManager().findFragmentByTag("date");
-        if (fragment == null){
+        if (fragment == null) {
             DatePicker datePicker = new DatePicker();
-            datePicker.setListener(this);
             datePicker.show(getSupportFragmentManager(), "date");
         }
 
     }
 
-    private void openTimePicker(){
+    private void openTimePicker() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         TimePicker fragment = (TimePicker) getSupportFragmentManager().findFragmentByTag("time");
-        if (fragment == null){
+        if (fragment == null) {
             TimePicker timePicker = new TimePicker();
-            timePicker.setListener(this);
             timePicker.show(getSupportFragmentManager(), "time");
         }
     }
@@ -82,17 +78,4 @@ public class MainActivity extends AppCompatActivity implements DatePicker.Return
         }
     }
 
-    @Override
-    public void date(int year, int month, int day) {
-        String string = "You've chosen year: " + year +
-                " and month: " + month +
-                " and day: " + day;
-        tvTime.setText(string);
-    }
-
-    @Override
-    public void time(int hourOfDay, int minute) {
-        String string = "You've chosen hour: " + hourOfDay + " and min: " + minute;
-        tvTime.setText(string);
-    }
 }

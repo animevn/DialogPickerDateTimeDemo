@@ -8,29 +8,27 @@ import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+//to connect to viewmodel in mainactivity, we have to use fragment activity, not fragment itself
 public class DatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
-    public interface ReturnDate{
-        void date(int year, int month, int day);
-    }
-
     private Context context;
-    private ReturnDate listener;
-
-    public void setListener(ReturnDate listener) {
-        this.listener = listener;
-    }
+    private FragmentActivity activity;
+    private Model model;
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
+        activity = getActivity();
     }
 
     @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState){
+        model = ViewModelProviders.of(activity).get(Model.class);
         final Calendar calendar = Calendar.getInstance();
         final int year = calendar.get(Calendar.YEAR);
         final int month = calendar.get(Calendar.MONTH);
@@ -40,7 +38,10 @@ public class DatePicker extends DialogFragment implements DatePickerDialog.OnDat
 
     //month starts from 0
     @Override
-    public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-        listener.date(year, month + 1, dayOfMonth);
+    public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth){
+        String string = "You've chosen year: " + year +
+                " and month: " + String.valueOf(month + 1) +
+                " and day: " + dayOfMonth;
+        model.setDate(string);
     }
 }
