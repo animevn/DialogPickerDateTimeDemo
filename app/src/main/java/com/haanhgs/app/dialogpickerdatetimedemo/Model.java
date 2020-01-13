@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel;
 
 public class Model extends ViewModel {
 
-    private MutableLiveData<String> date = new MutableLiveData<>();
-    private MutableLiveData<String> time = new MutableLiveData<>();
+    private final MutableLiveData<String> date = new MutableLiveData<>();
+    private final MutableLiveData<String> time = new MutableLiveData<>();
 
     public MutableLiveData<String> getDate() {
         return date;
