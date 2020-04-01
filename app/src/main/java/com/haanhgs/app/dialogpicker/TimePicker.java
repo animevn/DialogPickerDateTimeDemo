@@ -1,4 +1,4 @@
-package com.haanhgs.app.dialogpickerdatetimedemo;
+package com.haanhgs.app.dialogpicker;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

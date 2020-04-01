@@ -1,4 +1,4 @@
-package com.haanhgs.app.dialogpickerdatetimedemo;
+package com.haanhgs.app.dialogpicker;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
