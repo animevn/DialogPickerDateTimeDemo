@@ -1,9 +1,9 @@
-package com.haanhgs.app.dialogpicker;
+package com.haanhgs.app.dialogpicker.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class Model extends ViewModel {
+public class MyViewModel extends ViewModel {
 
     private final MutableLiveData<String> date = new MutableLiveData<>();
     private final MutableLiveData<String> time = new MutableLiveData<>();

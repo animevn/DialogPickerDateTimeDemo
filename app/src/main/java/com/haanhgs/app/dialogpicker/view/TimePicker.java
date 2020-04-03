@@ -1,22 +1,23 @@
-package com.haanhgs.app.dialogpicker;
+package com.haanhgs.app.dialogpicker.view;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
+import com.haanhgs.app.dialogpicker.viewmodel.MyViewModel;
 import java.util.Calendar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProvider;
 
 //to connect to viewmodel in mainactivity, we have to use fragment activity, not fragment itself
 public class TimePicker extends DialogFragment implements TimePickerDialog.OnTimeSetListener{
 
     private Context context;
     private FragmentActivity activity;
-    private Model model;
+    private MyViewModel model;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -28,7 +29,7 @@ public class TimePicker extends DialogFragment implements TimePickerDialog.OnTim
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        model = ViewModelProviders.of(activity).get(Model.class);
+        model = new ViewModelProvider(activity).get(MyViewModel.class);
         final Calendar calendar = Calendar.getInstance();
         final int hour = calendar.get(Calendar.HOUR_OF_DAY);
         final int minute = calendar.get(Calendar.MINUTE);

@@ -1,9 +1,13 @@
-package com.haanhgs.app.dialogpicker;
+package com.haanhgs.app.dialogpicker.view;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.haanhgs.app.dialogpicker.R;
+import com.haanhgs.app.dialogpicker.viewmodel.MyViewModel;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String MESSAGE = "message";
     @BindView(R.id.tvDate)
     TextView tvDate;
-    private Model model;
+    private MyViewModel viewModel;
 
     private void updateTextView() {
-        model.getDate().observe(this, string -> tvDate.setText(string));
-        model.getTime().observe(this, string -> tvTime.setText(string));
+        viewModel.getDate().observe(this, string -> tvDate.setText(string));
+        viewModel.getTime().observe(this, string -> tvTime.setText(string));
     }
 
     @Override
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        model = new ViewModelProvider(this).get(Model.class);
+        viewModel = new ViewModelProvider(this).get(MyViewModel.class);
         updateTextView();
     }
 
