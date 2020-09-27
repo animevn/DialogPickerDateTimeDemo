@@ -27,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
     private MyViewModel viewModel;
 
     private void updateTextView() {
-        viewModel.getDate().observe(this, string -> tvDate.setText(string));
-        viewModel.getTime().observe(this, string -> tvTime.setText(string));
+        viewModel.getLiveData().observe(this, time -> {
+            tvDate.setText(time.getDate());
+            tvTime.setText(time.getTime());
+        });
     }
 
     @Override
